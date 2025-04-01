@@ -1,0 +1,66 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id            String         @id
+    name          String
+    image         String?
+    videos        Video[]
+    watchedVideos WatchedVideo[]
+    Comment       Comment[]
+    LikedVideo    LikedVideo[]
+}
+
+model Video {
+    id            String         @id @default(uuid())
+    title         String
+    description   String         @default("")
+    tags          String         @default("")
+    views         Int            @default(0)
+    likes         Int            @default(0)
+    createdAt     DateTime       @default(now())
+    videoPath     String
+    thumbnailPath String
+    author        User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    authorId      String
+    comments      Comment[]
+    watchedBy     WatchedVideo[]
+    LikedVideo    LikedVideo[]
+}
+
+model Comment {
+    id        String   @id @default(uuid())
+    message   String
+    createdAt DateTime @default(now())
+    author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    authorId  String
+    Video     Video?   @relation(fields: [videoId], references: [id])
+    videoId   String?
+}
+
+model WatchedVideo {
+    userId    String
+    videoId   String
+    watchedAt DateTime @default(now())
+
+    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+    video Video @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+    @@id([userId, videoId])
+}
+
+model LikedVideo {
+    userId  String
+    videoId String
+
+    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+    video Video @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+    @@id([userId, videoId])
+}
