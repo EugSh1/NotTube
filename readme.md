@@ -41,7 +41,7 @@ Made with:
 -   **React Hook Form** – Form management.
 -   **date-fns** – Date formatting.
 
-![Made with](https://go-skill-icons.vercel.app/api/icons?i=nextjs,authjs,typescript,tailwindcss,prisma,sqlite&theme=dark)
+![Made with](https://go-skill-icons.vercel.app/api/icons?i=nextjs,authjs,typescript,tailwindcss,shadcn,prisma,sqlite&theme=dark)
 
 ## Usage
 
