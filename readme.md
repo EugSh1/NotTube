@@ -38,6 +38,7 @@ Made with:
 -   **Zod** – Data validation.
 -   **NextAuth** – Authentication.
 -   **Tailwind CSS** – Fast and modern styling.
+-   **Shadcn/ui** – Accessible and customizable UI components.
 -   **React Hook Form** – Form management.
 -   **date-fns** – Date formatting.
 
