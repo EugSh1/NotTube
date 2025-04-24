@@ -4,10 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import VideoCard from "@/components/VideoCard";
 import { apiFetch } from "@/lib/apiFetch";
+import { formatPageTitle } from "@/lib/formatPageTitle";
 import { formatBigNumber } from "@/lib/formatVideoStats";
 import { IVideoWithAuthor } from "@/types";
 import { FileVideo2 } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+    title: formatPageTitle("Studio")
+};
 
 export default async function StudioPage() {
     const session = await auth();

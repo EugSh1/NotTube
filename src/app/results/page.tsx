@@ -3,9 +3,19 @@ import { cn } from "@/lib/utils";
 import VideoCard from "@/components/VideoCard";
 import { apiFetch } from "@/lib/apiFetch";
 import NoResults from "@/components/NoResults";
+import type { Metadata } from "next";
+import { formatPageTitle } from "@/lib/formatPageTitle";
 
 interface IProps {
     searchParams?: Promise<{ search_query?: string }>;
+}
+
+export async function generateMetadata({ searchParams }: IProps): Promise<Metadata> {
+    const searchQuery = (await searchParams)?.search_query ?? "";
+
+    return {
+        title: formatPageTitle(searchQuery)
+    };
 }
 
 export default async function ResultsPage({ searchParams }: IProps) {

@@ -3,6 +3,12 @@ import { apiFetch } from "@/lib/apiFetch";
 import NoResults from "@/components/NoResults";
 import { IWatchedVideo } from "@/types";
 import VideoCard from "@/components/VideoCard";
+import type { Metadata } from "next";
+import { formatPageTitle } from "@/lib/formatPageTitle";
+
+export const metadata: Metadata = {
+    title: formatPageTitle("History")
+};
 
 export default async function HistoryPage() {
     const { data: videos, success, error } = await apiFetch<IWatchedVideo[]>(`/video/watched`);

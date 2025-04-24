@@ -1,6 +1,12 @@
 import { Video as IVideo } from "@prisma/client";
 import VideoCard from "@/components/VideoCard";
 import { apiFetch } from "@/lib/apiFetch";
+import type { Metadata } from "next";
+import { formatPageTitle } from "@/lib/formatPageTitle";
+
+export const metadata: Metadata = {
+    title: formatPageTitle("Home")
+};
 
 export const revalidate = 0;
 

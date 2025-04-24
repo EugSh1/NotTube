@@ -4,8 +4,32 @@ import { apiFetch } from "@/lib/apiFetch";
 import Image from "next/image";
 import { IVideoWithAuthor } from "@/types";
 import NoResults from "@/components/NoResults";
+import type { Metadata } from "next";
+import { formatPageTitle } from "@/lib/formatPageTitle";
 
-export default async function VideoPage({ params }: { params: Promise<{ authorId: string }> }) {
+interface IProps {
+    params: Promise<{ authorId: string }>;
+}
+
+export async function generateMetadata({ params }: IProps): Promise<Metadata> {
+    const { authorId } = await params;
+
+    const { data: videos, success } = await apiFetch<IVideoWithAuthor[]>(
+        `/video?authorId=${authorId}`
+    );
+
+    if (success && videos?.length) {
+        return {
+            title: formatPageTitle(videos[0].author.name)
+        };
+    }
+
+    return {
+        title: formatPageTitle("Channel Videos")
+    };
+}
+
+export default async function VideoPage({ params }: IProps) {
     const { authorId } = await params;
 
     const {
