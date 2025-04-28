@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
+        "setup": "tsx setupBuckets.ts",
         "dev": "next dev --turbopack",
         "build": "next build",
         "start": "next start",
@@ -23,6 +24,7 @@
         "clsx": "^2.1.1",
         "date-fns": "^4.1.0",
         "lucide-react": "^0.483.0",
+        "minio": "^8.0.5",
         "next": "15.2.4",
         "next-auth": "5.0.0-beta.25",
         "next-themes": "^0.4.6",
@@ -41,10 +43,12 @@
         "@types/node": "^20.17.28",
         "@types/react": "^19.0.12",
         "@types/react-dom": "^19.0.4",
+        "dotenv": "^16.5.0",
         "eslint": "^9.23.0",
         "eslint-config-next": "15.2.3",
         "prisma": "^6.5.0",
         "tailwindcss": "^4.0.17",
+        "tsx": "^4.19.3",
         "typescript": "^5.8.2"
     },
     "pnpm": {

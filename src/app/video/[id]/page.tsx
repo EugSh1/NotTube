@@ -14,6 +14,7 @@ import ShareVideoButton from "@/components/ShareVideoButton";
 import NewCommentTextarea from "@/components/NewCommentTextarea";
 import LikeVideoButton from "@/components/LikeVideoButton";
 import { toast } from "sonner";
+import { getThumbnailPath, getVideoPath } from "@/lib/getFilePaths";
 
 export async function generateMetadata({
     params
@@ -69,8 +70,8 @@ export default async function VideoPage({ params }: { params: Promise<{ id: stri
                 <SessionProvider>
                     <VideoPlayer
                         videoId={id}
-                        thumbnailPath={video.thumbnailPath}
-                        videoPath={video.videoPath}
+                        thumbnailPath={getThumbnailPath(video.thumbnailPath)}
+                        videoPath={getVideoPath(video.videoPath)}
                     />
                 </SessionProvider>
                 <div className="flex justify-between items-center mt-1">

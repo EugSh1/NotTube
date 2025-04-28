@@ -1,8 +1,8 @@
 import prisma from "@/lib/prisma";
 import { randomUUID } from "node:crypto";
 import path from "node:path";
-import { existsSync } from "fs";
-import { mkdir, unlink, writeFile } from "fs/promises";
+import { minioClient } from "@/lib/minioClient";
+import HTTPError from "@/lib/httpError";
 
 export class VideoService {
     static async getVideos(take: number | undefined) {
@@ -70,42 +70,47 @@ export class VideoService {
         const thumbnailBytes = await thumbnail.arrayBuffer();
         const thumbnailBuffer = Buffer.from(thumbnailBytes);
 
-        const uploadsDir = path.join(process.cwd(), "uploads");
         const videoName = `${randomUUID()}-video.mp4`;
-        const videoPath = path.join(uploadsDir, videoName);
         const thumbnailExtension = path.extname(thumbnail.name);
         const thumbnailName = `${randomUUID()}-thumbnail${thumbnailExtension}`;
-        const thumbnailPath = path.join(uploadsDir, thumbnailName);
 
-        if (!existsSync(uploadsDir)) {
-            await mkdir(uploadsDir, { recursive: true });
+        try {
+            await Promise.all([
+                minioClient.putObject("videos", videoName, videoBuffer),
+                minioClient.putObject("thumbnails", thumbnailName, thumbnailBuffer)
+            ]);
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : "Unknown error";
+            throw new HTTPError(`Error uploading files: ${errorMessage}`, 500);
         }
-
-        await writeFile(videoPath, videoBuffer);
-        await writeFile(thumbnailPath, thumbnailBuffer);
 
         return await prisma.video.create({
             data: {
                 title,
                 description,
                 tags,
-                videoPath: `/uploads/${videoName}`,
-                thumbnailPath: `/uploads/${thumbnailName}`,
+                videoPath: videoName,
+                thumbnailPath: thumbnailName,
                 authorId: userId
             }
         });
     }
 
     static async deleteVideo(videoId: string, userId: string) {
-        const video = await prisma.video.delete({
+        const { videoPath, thumbnailPath } = await prisma.video.delete({
             where: { id: videoId, authorId: userId },
             select: { videoPath: true, thumbnailPath: true }
         });
 
-        const videoPath = path.join(process.cwd(), video.videoPath);
-        const thumbnailPath = path.join(process.cwd(), video.thumbnailPath);
-
-        await Promise.all([unlink(videoPath), unlink(thumbnailPath)]);
+        try {
+            await Promise.all([
+                minioClient.removeObject("videos", videoPath),
+                minioClient.removeObject("thumbnails", thumbnailPath)
+            ]);
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : "Unknown error";
+            throw new HTTPError(`Error deleting files: ${errorMessage}`, 500);
+        }
     }
 
     static async updateVideo(

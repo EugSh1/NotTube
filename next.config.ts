@@ -11,16 +11,12 @@ const nextConfig: NextConfig = {
             {
                 protocol: "https",
                 hostname: "avatars.githubusercontent.com"
+            },
+            {
+                protocol: "http",
+                hostname: "127.0.0.1"
             }
         ]
-    },
-    async rewrites() {
-        return [
-            {
-                source: "/uploads/:path*",
-                destination: "/api/uploads/:path*"
-            }
-        ];
     }
 };
 

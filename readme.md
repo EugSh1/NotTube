@@ -41,8 +41,9 @@ Made with:
 -   **Shadcn/ui** – Accessible and customizable UI components.
 -   **React Hook Form** – Form management.
 -   **date-fns** – Date formatting.
+-   **MinIO** – Object storage for video and thumbnail files.
 
-![Made with](https://go-skill-icons.vercel.app/api/icons?i=nextjs,authjs,typescript,tailwindcss,shadcn,prisma,sqlite&theme=dark)
+![Made with](https://go-skill-icons.vercel.app/api/icons?i=nextjs,authjs,typescript,tailwindcss,shadcn,prisma,sqlite,s3&theme=dark)
 
 ## Usage
 

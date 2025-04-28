@@ -1,4 +1,5 @@
 import { formatViews } from "@/lib/formatVideoStats";
+import { getThumbnailPath } from "@/lib/getFilePaths";
 import { cn } from "@/lib/utils";
 import { Video as IVideo } from "@prisma/client";
 import { formatDistanceToNow } from "date-fns";
@@ -48,7 +49,7 @@ export default function VideoCard({ variant, video, className, ...props }: IProp
     return (
         <Link href={`/video/${id}`} className={cn(variantStyles.container, className)} {...props}>
             <Image
-                src={thumbnailPath}
+                src={getThumbnailPath(thumbnailPath)}
                 alt={video.title}
                 className={cn(
                     "w-full aspect-video rounded-lg object-cover",
