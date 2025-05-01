@@ -23,7 +23,7 @@ export class VideoService {
     }
 
     static async getVideoById(id: string) {
-        return await prisma.video.findUnique({
+        const foundVideo = await prisma.video.findUnique({
             where: { id },
             include: {
                 author: true,
@@ -37,6 +37,12 @@ export class VideoService {
                 }
             }
         });
+
+        if (!foundVideo) {
+            throw new HTTPError("Video not found", 404);
+        }
+
+        return foundVideo;
     }
 
     static async searchVideos(searchQuery: string, take: number | undefined) {

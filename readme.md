@@ -42,8 +42,9 @@ Made with:
 -   **React Hook Form** – Form management.
 -   **date-fns** – Date formatting.
 -   **MinIO** – Object storage for video and thumbnail files.
+-   **Vitest** – For testing API routes.
 
-![Made with](https://go-skill-icons.vercel.app/api/icons?i=nextjs,authjs,typescript,tailwindcss,shadcn,prisma,sqlite,s3&theme=dark)
+![Made with](https://go-skill-icons.vercel.app/api/icons?i=nextjs,authjs,typescript,tailwindcss,shadcn,prisma,sqlite,s3,vitest&theme=dark)
 
 ## Usage
 

@@ -53,7 +53,11 @@ export async function POST(req: NextRequest) {
         });
 
         if (!video) {
-            throw new HTTPError("File not found", 400);
+            throw new HTTPError("The video was not sent", 400);
+        }
+
+        if (!thumbnail) {
+            throw new HTTPError("The thumbnail was not sent", 400);
         }
 
         const newVideo = await VideoService.createVideo(
@@ -65,7 +69,7 @@ export async function POST(req: NextRequest) {
             userId
         );
 
-        return NextResponse.json(newVideo);
+        return NextResponse.json(newVideo, { status: 201 });
     } catch (error) {
         return respondWithError(error);
     }
