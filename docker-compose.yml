@@ -12,6 +12,19 @@ services:
             - minio_data:/data
         command: server /data
         restart: always
+    postgres:
+        image: postgres:16
+        container_name: nottube-postgres
+        restart: always
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_USER: ${POSTGRES_USERNAME}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DB_NAME}
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
 
 volumes:
     minio_data:
+    postgres_data:

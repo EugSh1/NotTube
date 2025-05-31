@@ -33,7 +33,7 @@ Made with:
 
 -   **Next.js** – Full-stack framework.
 -   **TypeScript** – For type safety.
--   **SQLite** – Lightweight database.
+-   **PostgreSQL** – Powerful and scalable database.
 -   **Prisma** – Database ORM.
 -   **Zod** – Data validation.
 -   **NextAuth** – Authentication.
@@ -44,7 +44,7 @@ Made with:
 -   **MinIO** – Object storage for video and thumbnail files.
 -   **Vitest** – For testing API routes.
 
-![Made with](https://go-skill-icons.vercel.app/api/icons?i=nextjs,authjs,typescript,tailwindcss,shadcn,prisma,sqlite,s3,vitest&theme=dark)
+![Made with](https://go-skill-icons.vercel.app/api/icons?i=nextjs,authjs,typescript,tailwindcss,shadcn,prisma,postgres,s3,vitest&theme=dark)
 
 ## Usage
 
