@@ -10,7 +10,7 @@ interface IProps {
     searchParams?: Promise<{ search_query?: string }>;
 }
 
-export async function generateMetadata({ searchParams }: IProps): Promise<Metadata> {
+export async function generateMetadata({ searchParams }: Readonly<IProps>): Promise<Metadata> {
     const searchQuery = (await searchParams)?.search_query ?? "";
 
     return {
@@ -18,7 +18,7 @@ export async function generateMetadata({ searchParams }: IProps): Promise<Metada
     };
 }
 
-export default async function ResultsPage({ searchParams }: IProps) {
+export default async function ResultsPage({ searchParams }: Readonly<IProps>) {
     const searchQuery = (await searchParams)?.search_query ?? "";
 
     const {

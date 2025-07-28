@@ -1,6 +1,6 @@
 import { describe, expect, test, beforeAll, afterAll, beforeEach, vi } from "vitest";
 import prisma from "@/lib/prisma";
-import { Comment as IComment, Video as IVideo } from "@prisma/client";
+import { Comment as IComment } from "@prisma/client";
 import * as getUserIdModule from "@/lib/getUserId";
 import { mockVideoData } from "./utils";
 import { NextRequest } from "next/server";

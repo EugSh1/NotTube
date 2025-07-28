@@ -11,7 +11,7 @@ interface IProps {
     params: Promise<{ authorId: string }>;
 }
 
-export async function generateMetadata({ params }: IProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Readonly<IProps>): Promise<Metadata> {
     const { authorId } = await params;
 
     const { data: videos, success } = await apiFetch<IVideoWithAuthor[]>(
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: IProps): Promise<Metadata> {
     };
 }
 
-export default async function VideoPage({ params }: IProps) {
+export default async function VideoPage({ params }: Readonly<IProps>) {
     const { authorId } = await params;
 
     const {

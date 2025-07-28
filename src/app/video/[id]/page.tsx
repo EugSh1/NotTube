@@ -16,11 +16,11 @@ import LikeVideoButton from "@/components/LikeVideoButton";
 import { toast } from "sonner";
 import { getThumbnailPath, getVideoPath } from "@/lib/getFilePaths";
 
-export async function generateMetadata({
-    params
-}: {
+interface IProps {
     params: Promise<{ id: string }>;
-}): Promise<Metadata> {
+}
+
+export async function generateMetadata({ params }: Readonly<IProps>): Promise<Metadata> {
     const { id } = await params;
     const { data: video, success } = await apiFetch<IVideoWithAuthor>(`/video?id=${id}`);
 
@@ -43,7 +43,7 @@ export async function generateMetadata({
     };
 }
 
-export default async function VideoPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function VideoPage({ params }: Readonly<IProps>) {
     const { id } = await params;
     const { data: video, success: videoSuccess } = await apiFetch<IVideoWithAuthor>(
         `/video?id=${id}`
